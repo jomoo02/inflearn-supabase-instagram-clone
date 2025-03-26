@@ -6,6 +6,8 @@ import ReactQueryClientProvider from "config/react-query-client-provider";
 import Header from "components/header";
 import Footer from "components/footer";
 import RecoilProvider from "config/recoil-provider";
+import MainLayout from "components/layouts/main-layout";
+import Auth from "components/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const loggedIn = true;
+
   return (
     <html lang="en">
       <head>
@@ -29,7 +33,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <RecoilProvider>
           <ReactQueryClientProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeProvider>
+              {loggedIn ? <MainLayout>{children}</MainLayout> : <Auth />}
+            </ThemeProvider>
           </ReactQueryClientProvider>
         </RecoilProvider>
       </body>
